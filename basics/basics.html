@@ -1,9 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
     <meta charset="utf-8">
     <meta name="author" content="Justin Cox">
     <title>CIT 261</title>
+</head>
     <body>
-        <h1>Functions</h1>
+            <h2>List Sorter</h2>
+    <p>Enter Words:</p> 
+    <input type="text" id="item"> 
+    <button type="button" onclick="addItem()">Add</button>
+    <button type="button" onclick="clearList()">Clear List</button>
+    <div id="unsortedArray">
+        <h4>Current List</h4>
+    </div>
+    <br><button type="button" id="sortButton" onclick="sortArray()">Sort List</button>
+    <h4>Sorted List</h4>
+    <div id="sortedArray">
+    </div>
+    <div id="code">
+        
+    </div>
+    <script>
+    // array to hold items
+    let currentArray = [];
+    function addItem() {
+        // create a variable to hold what the user entered
+        let item = document.getElementById("item");
+        // add the item to the array
+        currentArray.push(item.value);
+        // data check
+        console.table(currentArray);
+        // display the list
+        displayList(currentArray, task="displayUnsorted");
+        
+    }
+    function displayList(listArray, task) {
+        // display sorted array if sort button was clicked
+        if(task == "displaySorted")
+        {
+            // clear the div
+            document.querySelector("#sortedArray").innerHTML = '';
+            // display the information
+            for(let i in listArray) {
+                // new line
+                let newLine = document.createElement("br");
+                // append array item with new line
+                document.querySelector("#sortedArray").append(listArray[i], newLine);
+            }
+        }
+        else 
+        {
+            // create p element
+            let arrayData = document.createElement('p');
+            // place what is in the array to the p element
+            for(let i in listArray)
+            {
+                arrayData = listArray[i];
+            }
+        
+            // need to add a break to each line
+            let newLine = document.createElement("br");
+            // append the item to the div to be displayed to the user
+            console.log(task);
+            document.querySelector("#unsortedArray").append(arrayData, newLine);
+        }
+    }
+    function clearList() {
+        // set the array to empty
+        currentArray = [];
+        // refresh the page
+        document.location.reload(true);
+    }
+    function sortArray() {
+        // capitalize the array to be used with the sort method
+        let capitalizedArray = [];
+        for(let i in currentArray) {
+            capitalizedArray[i] = currentArray[i].charAt(0).toUpperCase() + currentArray[i].slice(1);
+        }
+        // data check the unsorted array
+        console.table("Sort Function" + capitalizedArray);
+        // sort the array
+        let sortedArray = capitalizedArray.sort();
+        // display the sorted array
+        displayList(sortedArray, task = "displaySorted");
+    }
+    </script>
     </body>
 </html>
