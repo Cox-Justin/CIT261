@@ -32,9 +32,9 @@
         // data check
         console.table(currentArray);
         // display the list
-        displayList(currentArray, task="displayUnsorted");
-        
+        displayList(currentArray, task="displayUnsorted"); 
     }
+        
     function displayList(listArray, task) {
         // display sorted array if sort button was clicked
         if(task == "displaySorted")
@@ -66,12 +66,14 @@
             document.querySelector("#unsortedArray").append(arrayData, newLine);
         }
     }
+        
     function clearList() {
         // set the array to empty
         currentArray = [];
         // refresh the page
         document.location.reload(true);
     }
+        
     function sortArray() {
         // capitalize the array to be used with the sort method
         let capitalizedArray = [];
