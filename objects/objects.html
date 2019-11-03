@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<header>
+    <meta charset="utf-8">
+    <meta name="author" content="Justin Cox">
+    <title>JavaScript Objects</title>
+</header>
+
+<body>
+    <div id="header">
+        <h1>Customize Your Laptop</h1>
+    </div>
+    <button type="button" id="budget-button" onclick="promptBudget()">Add Budget</button>
+    <div id="content">
+        <div id="laptop-specs">
+            <h3>Specs</h3>
+            <p>Ram</p>
+            <select id="ram">
+                <!-- TODO: ADD COST FOR SPECS-->
+                <option value="0">Pick One</option>
+                <option value="50">4 GB</option>
+                <option value="100">8 GB</option>
+                <option value="150">16 GB</option>
+            </select>
+            <p>Hard Drive</p>
+            <select id="harddrive">
+                <!-- TODO: ADD SSD AND HD PRICING -->
+                <option value="0">Pick One</option>
+                <option value="50">128 GB</option>
+                <option value="100">256 GB</option>
+                <option value="150">512 GB</option>
+            </select>
+        </div>
+        <br><button type="button" onclick="updateBudget()">Add Specs</button><br>
+        <h3>Budget</h3>
+        <div id="laptop-budget">
+        </div>
+        <br><button type="button" onclick="completePurchase()">Purchase</button>
+    </div>
+    <script>
+        //create the object
+        let laptop = new Object();
+        laptop.budget = 0;
+
+        function promptBudget() {
+            laptop.budget = window.prompt("Please Enter Your Budget");
+            initializeBudget(laptop.budget);
+
+            return laptop.budget;
+        }
+
+        function initializeBudget() {
+            // check the value
+            console.log("Budget is: " + laptop.budget);
+
+            // create the html element
+            let currentBudget = document.createElement('p');
+
+            // assign the value
+            currentBudget = laptop.budget;
+
+            // append the value
+            document.querySelector("#laptop-budget").append('$' + currentBudget);
+
+            console.log(currentBudget);
+        }
+
+        function updateBudget() {
+            // get select values
+            let ramCost = document.getElementById("ram").value;
+            let harddriveCost = document.getElementById("harddrive").value;
+
+            // get select text
+            let ramOption = ram.options[ram.selectedIndex];
+            let harddriveOption = harddrive.options[harddrive.selectedIndex];
+            laptop.ram = ramOption.text;
+            laptop.harddrive = harddriveOption.text;
+
+            //update budget
+            laptop.budget -= ramCost;
+            console.log("Ramcost here: " + ramCost);
+            laptop.budget -= harddriveCost;
+
+            console.log("HarddriveCost here: " + harddriveCost);
+            console.log("Budget is now: " + laptop.budget);
+
+            // update the budget div
+            document.querySelector("#laptop-budget").innerHTML = '';
+            document.querySelector("#laptop-budget").append('$' + laptop.budget);
+        }
+
+        function completePurchase() {
+            let ramCost = document.getElementById("ram").value;
+            let harddriveCost = document.getElementById("harddrive").value;
+            window.alert("The laptop purchase has " + laptop.ram + " of ram and " +
+                         laptop.harddrive + " of storage capacity which cost $" +
+                         (Number(ramCost) + Number(harddriveCost)));
+        }
+    </script>
+</body>
+
+</html>
